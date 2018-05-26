@@ -68,24 +68,28 @@ export default {
       newsId = localStorage.getItem('newsId')
       this.$router.push(`detail/${newsId}`)
     }
-    this.get(`${yjip}/news/${newsId}/`).then(e => {
-      commit('saveNews', e.data)
+    this.get(`${yjip}/news/${newsId}/`).then(d => {
+      commit('saveNews', d.data)
       commit('hideLoading')
-      const { patents } = e.data
+      const { patents } = d.data
       this.patents = patents
       const str = 'patentId=' + patents.join(',')
       this.get(`${ztip}/patent?${str}`).then(e => {
+        console.log(e)
         this.ipList = []
         e.data.map(f => {
+          console.log(f)
           let text
           if (f.title[0].lang.toLowerCase() == 'cn') {
             text = f.title[0].text
-          } else if (f.title[1].lang.toLowerCase() == 'cn') {
+          } else if (f.title[1] && f.title[1].lang.toLowerCase() == 'cn') {
             text = f.title[1].text
           } else if (f.title[0].lang.toLowerCase() == 'en') {
             text = f.title[0].text
-          } else {
+          } else if (f.title[1]) {
             text = f.title[1].text
+          } else {
+            text = f.title[0].text
           }
           this.ipList.push({
             text,

@@ -18,7 +18,7 @@
                 <!--<div class="flex">-->
                 <p>{{abstract}}</p>
                 <!--</div>-->
-                <div style="padding:.2rem">申请状态：<span style="font-weight: bold">{{legal}}</span></div>
+                <div v-if="legal" style="padding:.2rem">申请状态：<span style="font-weight: bold">{{legal}}</span></div>
                 <h3 style="margin-top:.3rem;font-size: .4rem;text-align: left;margin:0 .2rem;">专利价值分析：</h3>
                 <div v-for="(e,key) in ipValueDetail[0]" :key="key" class="flex line"
                      v-if="key!='patent_id'">
@@ -60,6 +60,7 @@ export default {
   computed: {
     legal() {
       let legal
+      if(!this.ipDetail.legal){return ''}
       this.ipDetail.legal.legal_status[0].legal_desc.map(e => {
         if (e.lang.toLowerCase() == 'cn') {
           legal = e.text
@@ -74,17 +75,22 @@ export default {
           abstract = e.text
         }
       })
+      if (!abstract) {
+        abstract = this.ipDetail.abstract[0].text
+      }
       return abstract
     },
     title() {
       let title
-      console.log(this.ipDetail)
-      if (this.ipDetail.title) return undefined
+      // if (this.ipDetail.title) return undefined
       this.ipDetail.title.map(e => {
         if (e.lang.toLowerCase() == 'cn') {
           title = e.text
         }
       })
+      if (!title) {
+        title = this.ipDetail.title[0].text
+      }
       return title
     },
     ...mapGetters([]), // 页面i18n obj
