@@ -49,19 +49,14 @@
 import { mapGetters, mapState, mapActions, mapMutations } from 'vuex'
 
 let commit
-const yjip = 'http://192.168.14.198:8000'
-const yjip2 = 'http://192.168.14.198:8888'
-const ztip = 'http://192.168.5.179:8888'
+// const yjip = 'http://192.168.14.198:8000'
+// const yjip2 = 'http://192.168.14.198:8888'
+// const ztip = 'http://192.168.5.179:8888'
 const ztip2 = 'http://192.168.5.179:8000'
 
 export default {
   name: 'List',
   props: {
-    name: {
-      type: Array,
-      default() {
-      },
-    },
   },
   data() {
     return {
@@ -90,7 +85,6 @@ export default {
       commit('setMsg', e)
     },
     getPage() {
-      console.log(`${ztip2}/news/?pageNum=${++this.pageNum}&pageSize=10`)
       return this.get(`${ztip2}/news/?pageNum=${++this.pageNum}&pageSize=10`).then(e => {
         commit('saveList', e.data)
         commit('hideLoading')

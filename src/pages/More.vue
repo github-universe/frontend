@@ -74,7 +74,7 @@ export default {
       commit('saveIp', ip)
       this.$router.push(`/ip/${ip.patent_id}`)
     },
-    collect(id) {
+    collect() {
     },
   },
   components: {},

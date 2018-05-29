@@ -13,10 +13,10 @@
 import { mapGetters, mapState, mapActions, mapMutations } from 'vuex'
 
 let commit
-const yjip = 'http://192.168.14.198:8000'
-const yjip2 = 'http://192.168.14.198:8888'
+// const yjip = 'http://192.168.14.198:8000'
+// const yjip2 = 'http://192.168.14.198:8888'
 const ztip = 'http://192.168.5.179:8888'
-const ztip2 = 'http://192.168.5.179:8000'
+// const ztip2 = 'http://192.168.5.179:8000'
 export default {
   name: 'Collection',
   props: {

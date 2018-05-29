@@ -40,8 +40,8 @@
 <script>
 import { mapGetters, mapState, mapActions, mapMutations } from 'vuex'
 
-const yjip = 'http://192.168.14.234:8000'
-const yjip2 = 'http://192.168.14.234:8888'
+// const yjip = 'http://192.168.14.234:8000'
+// const yjip2 = 'http://192.168.14.234:8888'
 const ztip = 'http://192.168.5.179:8888'
 let commit
 export default {
@@ -135,31 +135,19 @@ export default {
         commit('saveIp', e.data[0])
         this.getIpValueDetail()
         this.getCitationDetail()
-      }, err => {
       })
     },
     getAnother(loaded) {
-      console.log('getAnother')
       this.get(`${ztip}/recommend/userbase?openid=${this.openId}&howMany=1`)
         .then(({ data }) => {
           this.id = data[0]
           this.getIp(data[0])
-          console.log(this.id)
           loaded && loaded('done')
         })
     },
     refresh(loaded) {
       commit('showLoading')
       this.getAnother(loaded)
-      return
-      this.get(`/recommend/userbase?openid=${this.openId}&howMany=1 `).then(s => {
-        console.log(10)
-        loaded('done')
-      }, e => {
-        console.log(0)
-        this.$toastr.e('网络出了问题')
-        loaded('done')
-      })
     },
     getIpValueDetail() {
       this.get(`${ztip}/patent/valuation?patentId=${this.id}`).then(e => {

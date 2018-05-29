@@ -39,8 +39,8 @@
 <script>
 import { mapGetters, mapState, mapActions, mapMutations } from 'vuex'
 
-const yjip = 'http://192.168.14.198:8000'
-const yjip2 = 'http://192.168.14.198:8888'
+// const yjip = 'http://192.168.14.198:8000'
+// const yjip2 = 'http://192.168.14.198:8888'
 const ztip = 'http://192.168.5.179:8888'
 const ztip2 = 'http://192.168.5.179:8000'
 let commit
@@ -138,7 +138,7 @@ export default {
     },
     getCollected(item, v) {
       if (v) {
-        this.post(`${ztip}/collection?openid=${this.openId}&patentId=${item.ip.patent_id}`).then(e => {
+        this.post(`${ztip}/collection?openid=${this.openId}&patentId=${item.ip.patent_id}`).then(() => {
           this.get(`${ztip}/collection/${this.openId}`).then(f => {
             this.collectList = f.data.split(',')
           })
@@ -146,7 +146,7 @@ export default {
         // this.collectList = [...this.collectList, item.ip.patent_id]
         // console.log(this.collectList)
       } else {
-        this.del(`${ztip}/collection?openid=${this.openId}&patentId=${item.ip.patent_id}`).then(e => {
+        this.del(`${ztip}/collection?openid=${this.openId}&patentId=${item.ip.patent_id}`).then(() => {
           this.get(`${ztip}/collection/${this.openId}`).then(f => {
             this.collectList = f.data.split(',')
           })
