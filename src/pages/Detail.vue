@@ -130,7 +130,7 @@ export default {
     const { open_id } = this.$route.query
     if (open_id) {
       localStorage.setItem('openId', open_id)
-      this.$store.commit('saveOpenId', open_id)
+      commit('saveOpenId', open_id)
     }
   },
   methods: {

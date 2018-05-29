@@ -63,7 +63,9 @@ export default {
   computed: {
     legal() {
       let legal
-      if(!this.ipDetail.legal){return ''}
+      if (!this.ipDetail.legal) {
+        return ''
+      }
       this.ipDetail.legal.legal_status[0].legal_desc.map(e => {
         if (e.lang.toLowerCase() == 'cn') {
           legal = e.text
@@ -73,7 +75,7 @@ export default {
     },
     abstract() {
       let abstract
-      if(!this.ipDetail.abstract) return
+      if (!this.ipDetail.abstract) return
       this.ipDetail.abstract.map(e => {
         if (e.lang.toLowerCase() == 'cn') {
           abstract = e.text
@@ -102,6 +104,11 @@ export default {
   },
   created() {
     commit = this.$store.commit
+    const { openid } = this.$route.query
+    if (openid) {
+      localStorage.setItem('openId', openid)
+    }
+    commit('saveOpenId', openid)
     commit('clearIp')
     let { ipId } = this.$route.params
     if (ipId) {
@@ -127,7 +134,8 @@ export default {
   methods: {
     ...mapActions(['']),
     ...mapMutations(['']),
-    getCollect(){},
+    getCollect() {
+    },
     getIp(id) {
       commit('clearIp')
       this.get(`${ztip}/patent?patentId=${id}`).then(e => {
