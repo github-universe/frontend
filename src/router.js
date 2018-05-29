@@ -5,7 +5,9 @@ import List from './pages/List'
 import Detail from './pages/Detail'
 import IpDetail from './pages/IpDetail'
 import IpList from './pages/IpList'
+import Collection from './pages/Collection'
 import Ip from './pages/Ip'
+import More from './pages/More'
 
 Vue.use(Router)
 
@@ -13,6 +15,14 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/more',
+      name: 'More',
+      component: More,
+    }, {
+      path: '/collection',
+      name: 'Collection',
+      component: Collection,
+    }, {
       path: '/list',
       name: 'List',
       component: List,

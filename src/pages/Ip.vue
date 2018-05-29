@@ -2,7 +2,10 @@
     <scroll-load :bottom-load-method="refresh" :is-top-bounce="false" class="ip1"
                  :bottom-config="{triggerText:'向我推荐专利'}">
         <div class="ip">
-            <h2><i class="icon iconfont icon-zhuanli1"></i>专利详情</h2>
+            <h2><i class="icon iconfont icon-zhuanli1"></i>专利详情
+                <!--<i class="icon iconfont icon-shoucang1" @click="getCollect()"></i>-->
+                <!--<i class="icon iconfont icon-shoucang" @click="getCollect()"></i>-->
+            </h2>
             <div class="item">
                 <div class="flex">
                     <img :src="ipDetail.thumbnail"/>
@@ -70,6 +73,7 @@ export default {
     },
     abstract() {
       let abstract
+      if(!this.ipDetail.abstract) return
       this.ipDetail.abstract.map(e => {
         if (e.lang.toLowerCase() == 'cn') {
           abstract = e.text
@@ -110,7 +114,6 @@ export default {
     setTimeout(() => {
       commit('hideLoading')
     }, 0)
-    // this.get this.post
   },
   mounted() {
     // document.getElementsByClassName('default-text')[0].style.paddingTop='.4rem'
@@ -124,6 +127,7 @@ export default {
   methods: {
     ...mapActions(['']),
     ...mapMutations(['']),
+    getCollect(){},
     getIp(id) {
       commit('clearIp')
       this.get(`${ztip}/patent?patentId=${id}`).then(e => {

@@ -24,8 +24,21 @@ function post(url, data) {
   })
 }
 
+function del(url, params) {
+  return axios.request({
+    url,
+    method: 'DELETE',
+    headers: {
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'applicaftion/json',
+    },
+    params
+  })
+}
+
 export { post, get }
 export default { post, get }
 
 Vue.prototype.get = get
 Vue.prototype.post = post
+Vue.prototype.del = del

@@ -15,3 +15,14 @@ R&D API:
 • LOC -- 地理位置
  3. KEYWORDHELPER CN
 提供了对用户搜索的word或者phrase找出和它们相似的word或者phras
+
+
+/collection?
+
+openid=
+op_RswlKnMRslqCXnx10WVIIKXGg
+
+&patentId=
+9a4c0fa1e6e6b476b971be478a0aac3abb091267489f7cddb5620a559bb64cb681d5a5e3a395e150c67878fa44264d96
+
+http://192.168.5.179:8888/collection/op_RswlKnMRslqCXnx10WVIIKXGg

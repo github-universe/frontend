@@ -4,6 +4,10 @@
         <router-link to="/detail" class="iconfont icon-newspaper" router-link-active></router-link>
         <!--<router-link to="/ip" router-link-active></router-link>-->
         <a class="iconfont icon-zhuanli" :class="{active:isIp}" @click="go"></a>
+        <router-link to="/collection" router-link-active>
+            <i class="icon iconfont icon-iconfontzhizuobiaozhun23"></i>
+            <i class="icon iconfont icon-ai-mark"></i>
+        </router-link>
     </div>
 </template>
 
@@ -71,7 +75,14 @@ export default {
             font-size: .6rem;
             line-height: .9rem;
             color: #abcdef;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            i {
+                line-height: .9rem;
+                font-size: .6rem;
+            }
+            .icon-ai-mark {
+                display: none
+            }
         }
         a:hover, a:active {
         }
@@ -80,6 +91,14 @@ export default {
         }
         .router-link-active {
             color: #07f;
+        }
+        .router-link-active {
+            .icon-iconfontzhizuobiaozhun23 {
+                display: none
+            }
+            .icon-ai-mark {
+                display: block
+            }
         }
     }
 </style>

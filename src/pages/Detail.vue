@@ -25,9 +25,12 @@
         </div>
         <div id="ip-list">
             <h4>相关专利</h4>
-            <div v-for="item in ipList" :key="item.text" @click="viewIp(item)" class="clear">
-                <i class="iconfont icon-zhuanli"></i>
-                <div class="text">{{item.text}}</div>
+            <div v-for="(item,i) in ipList" :key="i" class="clear">
+                <i class="iconfont icon-zhuanli" @click="viewIp(item)"></i>
+                <div class="text" @click="viewIp(item)">{{item.text}}</div>
+                <i class="icon iconfont sc icon-shoucang" v-if="collect(item)" @click="getCollected(item)"></i>
+                <i class="icon iconfont sc icon-shoucang1" v-else style="font-size: .7rem;"
+                   @click="getCollected(item,true)"></i>
             </div>
         </div>
     </div>
@@ -36,9 +39,10 @@
 <script>
 import { mapGetters, mapState, mapActions, mapMutations } from 'vuex'
 
-const yjip = 'http://192.168.14.234:8000'
-const yjip2 = 'http://192.168.14.234:8888'
+const yjip = 'http://192.168.14.198:8000'
+const yjip2 = 'http://192.168.14.198:8888'
 const ztip = 'http://192.168.5.179:8888'
+const ztip2 = 'http://192.168.5.179:8000'
 let commit
 
 export default {
@@ -52,7 +56,13 @@ export default {
   },
   data() {
     return {
-      src: '', patents: '', ipList: [],
+      src: '', patents: '', ipList: [
+        // {
+        //   text: 123,
+        //   ip: {patent_id:1}
+        // }
+      ],
+      collectList: [],
     }
   },
   computed: {
@@ -62,23 +72,25 @@ export default {
   created() {
     commit = this.$store.commit
     let { newsId } = this.$route.params
+    if (newsId == 'null') {
+      this.$router.push('/lsit')
+      return
+    }
     if (newsId) {
       localStorage.setItem('newsId', newsId)
     } else {
       newsId = localStorage.getItem('newsId')
       this.$router.push(`detail/${newsId}`)
     }
-    this.get(`${yjip}/news/${newsId}/`).then(d => {
+    this.get(`${ztip2}/news/${newsId}/`).then(d => {
       commit('saveNews', d.data)
       commit('hideLoading')
       const { patents } = d.data
       this.patents = patents
       const str = 'patentId=' + patents.join(',')
       this.get(`${ztip}/patent?${str}`).then(e => {
-        console.log(e)
         this.ipList = []
         e.data.map(f => {
-          console.log(f)
           let text
           if (f.title[0].lang.toLowerCase() == 'cn') {
             text = f.title[0].text
@@ -105,8 +117,16 @@ export default {
     }, 3000)
     // console.log(this.post)
     // console.log(this.get)
+    this.get(`${ztip}/collection/${this.openId}`).then(e => {
+      this.collectList = e.data.split(',')
+    })
   },
   mounted() {
+    let { newsId } = this.$route.params
+    if (newsId == 'null') {
+      this.$router.push('/lsit')
+      return
+    }
     const { open_id } = this.$route.query
     if (open_id) {
       localStorage.setItem('openId', open_id)
@@ -115,6 +135,26 @@ export default {
   },
   methods: {
     default() {
+    },
+    getCollected(item, v) {
+      if (v) {
+        this.post(`${ztip}/collection?openid=${this.openId}&patentId=${item.ip.patent_id}`).then(e => {
+          this.get(`${ztip}/collection/${this.openId}`).then(f => {
+            this.collectList = f.data.split(',')
+          })
+        })
+        // this.collectList = [...this.collectList, item.ip.patent_id]
+        // console.log(this.collectList)
+      } else {
+        this.del(`${ztip}/collection?openid=${this.openId}&patentId=${item.ip.patent_id}`).then(e => {
+          this.get(`${ztip}/collection/${this.openId}`).then(f => {
+            this.collectList = f.data.split(',')
+          })
+        })
+      }
+    },
+    collect(item) {
+      return this.collectList.indexOf(item.ip.patent_id) > -1
     },
     viewIp(e) {
       this.get(`${ztip}/rating?openid=${this.openId}&patentId=${e.ip.patent_id}`)
@@ -234,8 +274,11 @@ export default {
             color: #38f;
             margin: 0 .2rem;
         }
+        .icon.sc {
+            float: right;
+        }
         .text {
-            width: 8rem;
+            width: 7rem;
             overflow: hidden;
             height: .6rem;
             text-overflow: ellipsis;
