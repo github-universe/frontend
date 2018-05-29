@@ -1,3 +1,12 @@
+npm run build
+npm run d/npm run serve
+
+npm i yarn -g
+
+yarn build
+yarn serve
+
+
 专利API：
  1. 专利详情
  2. 专利引用个数详情
