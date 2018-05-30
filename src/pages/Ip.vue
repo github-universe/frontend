@@ -105,6 +105,7 @@ export default {
   created() {
     commit = this.$store.commit
     const { openid } = this.$route.query
+
     if (openid) {
       localStorage.setItem('openId', openid)
     }
