@@ -108,8 +108,8 @@ export default {
 
     if (openid) {
       localStorage.setItem('openId', openid)
+      commit('saveOpenId', openid)
     }
-    commit('saveOpenId', openid)
     commit('clearIp')
     let { ipId } = this.$route.params
     if (ipId) {

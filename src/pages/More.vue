@@ -34,12 +34,12 @@ export default {
     ...mapState(['openId']),
   },
   created() {
-    const { open_id } = this.$route.query
-    if (open_id) {
-      localStorage.setItem('openId', open_id)
-      this.$store.commit('saveOpenId', open_id)
-    }
     commit = this.$store.commit
+    const { openid } = this.$route.query
+    if (openid) {
+      localStorage.setItem('openId', openid)
+      commit('saveOpenId', openid)
+    }
     const { ttl } = this.$route.query
     if (!ttl) {
       this.$router.push('/list')
