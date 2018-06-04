@@ -6,6 +6,9 @@ npm i yarn -g
 yarn build
 yarn serve
 
+使用dist包启动前端服务
+node serve
+
 
 专利API：
  1. 专利详情
