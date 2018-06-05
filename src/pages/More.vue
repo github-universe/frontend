@@ -98,7 +98,7 @@ export default {
             color: #38f;
         }
         h5 {
-            font-size: .45rem;
+            font-size: .4rem;
             margin: 0 .2rem;
             color: #666;
             line-height: .55rem;

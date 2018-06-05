@@ -227,7 +227,7 @@ export default {
                 margin: .2rem 0 0;
                 text-indent: 2em;
                 padding: .3rem;
-                font-size: .45rem;
+                font-size: .4rem;
                 line-height: 1.3;
                 word-break: break-word;
             }
