@@ -3,7 +3,7 @@
         <h2>{{ttl}}相关专利</h2>
         <div class="item flex" v-for="(item,i) in collectList" :key="i" @click="view(item)">
             <i class="iconfont icon-zhuanli"></i>
-            <h5 class="grow ellipsis">{{item.title1}}</h5>
+            <h5 class="grow">{{item.title1}}</h5>
             <!--<i class="icon iconfont icon-shoucang" @click="getDel(item.patent_id)" v-if="collect(item.patent_id)"></i>-->
             <!--<i class="icon iconfont icon-shoucang1" @click="getDel(item.patent_id)" v-else></i>-->
         </div>
@@ -41,6 +41,7 @@ export default {
       commit('saveOpenId', openid)
     }
     const { ttl } = this.$route.query
+    // const ttl = '华为'
     if (!ttl) {
       this.$router.push('/list')
       return
@@ -83,18 +84,24 @@ export default {
 
 <style lang="scss" scoped>
     .more {
-        padding: 0 .4rem;
+        padding-bottom: .9rem;
+        /*padding: 0 .4rem;*/
         .item {
-            margin: .3rem 0;
+            /*margin: .3rem 0;*/
+            padding: .3rem .4rem .3rem 0;
+            margin-left: .6rem;
             align-items: center;
+            border-bottom: 1px solid #ddd;
         }
         i {
-            font-size: .6rem;
+            font-size: .8rem;
             color: #38f;
         }
         h5 {
             font-size: .45rem;
             margin: 0 .2rem;
+            color: #666;
+            line-height: .55rem;
         }
     }
 </style>

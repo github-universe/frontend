@@ -84,7 +84,7 @@ export default {
 
 <style lang="scss" scoped>
     .app {
-        /*padding-bottom: 1.9rem;*/
+        /*padding-bottom: .6rem;*/
         width: 100vw;
         height: 100vh;
         flex-direction: column;

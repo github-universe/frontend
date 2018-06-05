@@ -7,12 +7,12 @@
                 <!--<i class="icon iconfont icon-shoucang" @click="getCollect()"></i>-->
             </h2>
             <div class="item">
+                <div class="title" :class="{'ellipsis-2':ellipsis}">{{title}}</div>
                 <div class="flex">
                     <img :src="ipDetail.thumbnail"/>
-                    <div>
-                        <div class="title" :class="{'ellipsis-2':ellipsis}">{{title}}</div>
-                        <div>{{ipDetail.patent_number}}</div>
-                        <div>{{ipDetail.apno}}</div>
+                    <div class="grow summary">
+                        <span>{{ipDetail.patent_number}}</span><br>
+                        <span>{{ipDetail.apno}}</span>
                         <div style="text-align: right">
                             <a :href="ipDetail.claim_link" target="_blank">智慧芽链接</a>
                         </div>
@@ -21,8 +21,8 @@
                 <!--<div class="flex">-->
                 <p>{{abstract}}</p>
                 <!--</div>-->
-                <div v-if="legal" style="padding:.2rem">申请状态：<span style="font-weight: bold">{{legal}}</span></div>
-                <h3 style="margin-top:.3rem;font-size: .4rem;text-align: left;margin:0 .2rem;">专利价值分析：</h3>
+                <div v-if="legal" style="padding:.2rem;color:#999">申请状态：<span style="font-weight: bold;color:#333">{{legal}}</span></div>
+                <h3 style="margin-top:.3rem;font-size: .5rem;text-align: left;margin:0 .2rem;">专利价值分析：</h3>
                 <div v-for="(e,key) in ipValueDetail[0]" :key="key" class="flex line"
                      v-if="key!='patent_id'">
                     <div style="width:60%">{{key}}：</div>
@@ -64,6 +64,9 @@ export default {
     legal() {
       let legal
       if (!this.ipDetail.legal) {
+        return ''
+      }
+      if (!this.ipDetail.legal.legal_status) {
         return ''
       }
       this.ipDetail.legal.legal_status[0].legal_desc.map(e => {
@@ -189,6 +192,14 @@ export default {
         .item {
             margin: .2rem 0 0;
             padding: 0 .2rem .4rem;
+            .summary {
+                padding: 0 .4rem;
+                span {
+                    font-size: .4rem;
+                    display: inline-block;
+                    padding: 0 .4rem .2rem 0;
+                }
+            }
             > div {
                 align-items: center;
                 justify-content: space-around;
@@ -203,31 +214,38 @@ export default {
             }
             .title {
                 /*height: .8rem;*/
-                font-size: .4rem;
-                line-height: .48rem;
+                font-size: .5rem;
+                line-height: .7rem;
                 color: #333;
-                width: 5.6rem;
-                margin: .2rem 0;
+                /*width: 5.6rem;*/
+                margin: .4rem 0;
             }
             img {
                 width: 3.6rem;
             }
             p {
                 margin: .2rem 0 0;
-                text-indent: .6rem;
-                padding: .2rem;
-                font-size: .4rem;
+                text-indent: 2em;
+                padding: .3rem;
+                font-size: .45rem;
+                line-height: 1.3;
                 word-break: break-word;
             }
         }
         .line {
+            border-bottom: 1px solid #ddd;
+            padding: .1rem 0;
             > div {
                 font-size: .44rem;
                 line-height: .6rem;
+                color:#888;
                 &:nth-of-type(1) {
                     padding: 0 .5rem 0 0;
                     text-align: right;
                 }
+            }
+            div:nth-of-type(2){
+                color:#555;
             }
         }
     }
