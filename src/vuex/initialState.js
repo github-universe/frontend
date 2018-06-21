@@ -21,7 +21,7 @@ export default {
     title: "索尼还没准备放弃手持式游戏机",
   },
   openId,
-  ipDetail: ipDetail[3],
+  ipDetail: null,
   citationDetail: [{
     // 专利引用个数
     "patent_id": "00000000-0000-0000-0000-000000000000",

@@ -57,7 +57,6 @@ const store = new Vuex.Store({
       state.isLogin = e
     },
     saveOpenId(state, e) {
-      console.log(e)
       state.openId = e
     },
   },

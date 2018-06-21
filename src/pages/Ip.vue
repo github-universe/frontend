@@ -1,6 +1,6 @@
 <template>
     <scroll-load :bottom-load-method="refresh" :is-top-bounce="false" class="ip1"
-                 :bottom-config="{triggerText:'向我推荐专利'}">
+                 :bottom-config="{triggerText:'向我推荐专利'}" v-if="ipDetail">
         <div class="ip">
             <h2><i class="icon iconfont icon-zhuanli1"></i>专利详情
                 <!--<i class="icon iconfont icon-shoucang1" @click="getCollect()"></i>-->
@@ -21,7 +21,8 @@
                 <!--<div class="flex">-->
                 <p>{{abstract}}</p>
                 <!--</div>-->
-                <div v-if="legal" style="padding:.2rem;color:#999">申请状态：<span style="font-weight: bold;color:#333">{{legal}}</span></div>
+                <div v-if="legal" style="padding:.2rem;color:#999">申请状态：<span style="font-weight: bold;color:#333">{{legal}}</span>
+                </div>
                 <h3 style="margin-top:.3rem;font-size: .5rem;text-align: left;margin:0 .2rem;">专利价值分析：</h3>
                 <div v-for="(e,key) in ipValueDetail[0]" :key="key" class="flex line"
                      v-if="key!='patent_id'">
@@ -112,6 +113,10 @@ export default {
     if (openid) {
       localStorage.setItem('openId', openid)
       commit('saveOpenId', openid)
+    }
+    if (!this.ipDetail) {
+      const { ipId } = this.$route.params
+      this.getIp(ipId)
     }
     commit('clearIp')
     let { ipId } = this.$route.params
@@ -238,14 +243,14 @@ export default {
             > div {
                 font-size: .44rem;
                 line-height: .6rem;
-                color:#888;
+                color: #888;
                 &:nth-of-type(1) {
                     padding: 0 .5rem 0 0;
                     text-align: right;
                 }
             }
-            div:nth-of-type(2){
-                color:#555;
+            div:nth-of-type(2) {
+                color: #555;
             }
         }
     }
